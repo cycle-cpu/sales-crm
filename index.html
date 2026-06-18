@@ -656,8 +656,21 @@ $('#file').onchange=e=>{
   const f=e.target.files[0]; if(!f)return;
   const r=new FileReader();
   r.onload=()=>{try{const j=JSON.parse(r.result);
-    if(j.owners){OWNERS=j.owners;localStorage.setItem(KEY+'_owners',JSON.stringify(OWNERS))}
-    data=j.data||j; save();fillSelects();render();toast(`Imported ${data.length} shops`,'win');
+    const incoming = Array.isArray(j) ? j : (j.data||[]);
+    if(j.owners && !data.length){OWNERS=j.owners} // only adopt owners on a fresh board
+    // additive merge: keep existing, add new, dedupe by id then by name+address
+    const ids=new Set(data.map(d=>d.id));
+    const keys=new Set(data.map(d=>((d.name||'')+'|'+(d.addr||'')).toLowerCase()));
+    let added=0;
+    for(const s of incoming){
+      const key=((s.name||'')+'|'+(s.addr||'')).toLowerCase();
+      if((s.id&&ids.has(s.id))||keys.has(key))continue;
+      if(!s.id)s.id=uid();
+      if(!s.status)s.status='lead';
+      data.push(s); ids.add(s.id); keys.add(key); added++;
+    }
+    save();fillSelects();render();
+    toast(added?`Added ${added} new shop${added>1?'s':''}`:'No new shops (all duplicates)','win');
   }catch(err){alert('Bad file')}};
   r.readAsText(f);
 };
