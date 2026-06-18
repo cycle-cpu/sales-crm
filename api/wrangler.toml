@@ -1,0 +1,10 @@
+name = "sales-crm-api"
+main = "src/index.js"
+compatibility_date = "2024-09-01"
+
+# Shared CRM storage. Replace id with the one printed by:
+#   npx wrangler kv namespace create CRM
+# (or reuse the id from the namespace you already made)
+[[kv_namespaces]]
+binding = "CRM"
+id = "PASTE_KV_NAMESPACE_ID_HERE"
