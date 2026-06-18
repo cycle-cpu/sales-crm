@@ -7,4 +7,4 @@ compatibility_date = "2024-09-01"
 # (or reuse the id from the namespace you already made)
 [[kv_namespaces]]
 binding = "CRM"
-id = "PASTE_KV_NAMESPACE_ID_HERE"
+id = "f1404cde65554782a49adbb2e54f0214"

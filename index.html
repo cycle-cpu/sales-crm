@@ -377,7 +377,7 @@ const today = () => new Date().toISOString().slice(0,10);
 
 // ---- shared cloud sync (Cloudflare Worker API) ----
 // 1) deploy the Worker in /api  2) paste its URL here  3) push to GitHub Pages
-const API='https://sales-crm-api.YOUR-SUBDOMAIN.workers.dev';
+const API='https://sales-crm-api.taggorilla42.workers.dev';
 const CLOUD = API.startsWith('http') && !API.includes('YOUR-SUBDOMAIN'); // off until configured / local file
 let passcode = localStorage.getItem(KEY+'_pass')||'';
 let stamp = +(localStorage.getItem(KEY+'_stamp')||0);
